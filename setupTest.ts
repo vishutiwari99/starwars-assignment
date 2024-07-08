@@ -1,31 +1,18 @@
-import '@testing-library/jest-dom';
-import { beforeEach, vi, beforeAll, afterEach, afterAll } from 'vitest';
-import {server} from './src/mocks/server';
-// import  fetch  from 'node-fetch';
+import { expect, afterEach, beforeAll, afterAll } from 'vitest';
+import { cleanup } from '@testing-library/react';
+import * as matchers from "@testing-library/jest-dom/matchers";
+import { server } from './src/mocks/server';
+expect.extend(matchers);
 
-
-// window.fetch = fetch;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-// (global as any).fetch = fetch;
-
-beforeEach(() => {
-  const matchMediaMock = vi.fn().mockImplementation((query) => ({
-    matches: false,
-    media: query,
-    onchange: null,
-    addListener: vi.fn(),
-    removeListener: vi.fn(),
-    addEventListener: vi.fn(),
-    removeEventListener: vi.fn(),
-    dispatchEvent: vi.fn(),
-  }));
-
-  const computedStyleMock = vi.fn().mockImplementation(() => ({}));
-  vi.stubGlobal('matchMedia', matchMediaMock);
-  vi.stubGlobal('getComputedStyle', computedStyleMock);
+afterEach(() => {
+  cleanup();
 });
 
-// beforeAll(() => server.listen());
-beforeAll(() => server.listen({ onUnhandledRequest: "bypass" }));
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
+// Start worker before all tests
+beforeAll(() => { server.listen() })
+
+//  Close server after all tests
+afterAll(() => {server.close()})
+
+// Reset handlers after each test `important for test isolation`
+afterEach(() => {server.resetHandlers()})
