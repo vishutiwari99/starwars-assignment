@@ -10,6 +10,9 @@ export default defineConfig({
     environment: "jsdom",
     setupFiles: "./setuptest.ts",
     globals: true,
+    coverage:{
+      provider:'v8'
+    }
   },
 })
 

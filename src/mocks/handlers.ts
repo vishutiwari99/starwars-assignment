@@ -6,7 +6,6 @@ export const handlers = [
     return HttpResponse.json({
       title: 'A New Hope',
     });
-    
   }),
  
 ]
