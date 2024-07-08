@@ -13,7 +13,6 @@ const starship:Starship = {
  
 describe('Render', () => {
  
-   
     it('should render the name of the starship ', async() => {
         render(<StarshipItem starship={starship}  />);
         await waitFor(() => expect(screen.getByText('CR90 corvette')).toBeInTheDocument());

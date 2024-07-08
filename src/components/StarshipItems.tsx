@@ -18,7 +18,7 @@ const StarshipItem: React.FC<StarshipItemProps> = ({ starship }) => {
           fetch(filmUrl).then((res) => res.json())
         );
         const filmData = await Promise.all(filmPromises);
-        console.log('film Data ',filmData);
+        // console.log('film Data ',filmData);
 
         setFilms(filmData);
       }
